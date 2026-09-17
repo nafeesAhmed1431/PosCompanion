@@ -1,0 +1,242 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Restaurant POS design system — ported verbatim (tokens + custom utilities)
+ * from snaps_lvl_pos's resources/css/app.css so this app matches its visuals
+ * pixel-for-pixel. Deep charcoal surfaces + a vivid multi-hue accent palette
+ * (amber / violet / teal / rose / sky), all colors in oklch. Dropped from the
+ * source file: the Laravel pagination @source path, SweetAlert2 import/rules
+ * (no SweetAlert2 in this app), and the saudi_riyal icon font (Laravel-app
+ * specific, unused here).
+ */
+
+@theme inline {
+    --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --radius-2xl: calc(var(--radius) + 8px);
+    --radius-3xl: calc(var(--radius) + 12px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-ring-offset-background: var(--background);
+    --color-surface: var(--surface);
+    --color-surface-raised: var(--surface-raised);
+    --color-header: var(--header);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    --color-brand-violet: var(--brand-violet);
+    --color-brand-sky: var(--brand-sky);
+    --color-brand-rose: var(--brand-rose);
+
+    --color-icon-sky: var(--icon-sky);
+    --color-icon-rose: var(--icon-rose);
+    --color-icon-rose-soft: var(--icon-rose-soft);
+    --color-icon-cyan: var(--icon-cyan);
+    --color-icon-pink: var(--icon-pink);
+    --color-icon-amber: var(--icon-amber);
+    --color-icon-emerald: var(--icon-emerald);
+    --color-icon-teal: var(--icon-teal);
+    --color-icon-violet: var(--icon-violet);
+    --color-icon-lime: var(--icon-lime);
+    --color-icon-orange: var(--icon-orange);
+    --color-icon-indigo: var(--icon-indigo);
+    --color-icon-fuchsia: var(--icon-fuchsia);
+    --color-icon-slate: var(--icon-slate);
+}
+
+:root {
+    --radius: 0.65rem;
+
+    --background: oklch(0.17 0.014 264);
+    --foreground: oklch(0.96 0.008 80);
+    --surface: oklch(0.22 0.018 264);
+    --surface-raised: oklch(0.27 0.02 264);
+    --header: var(--background);
+
+    /* card/popover/muted/secondary/input are deliberately *derived* from the
+       themeable tokens above (via alias or color-mix) rather than their own
+       fixed oklch values — kept exactly as the source app defines them so a
+       future theme-picker (ported later) reaches every surface uniformly. */
+    --card: var(--surface);
+    --card-foreground: var(--foreground);
+    --popover: var(--surface);
+    --popover-foreground: var(--foreground);
+
+    --primary: oklch(0.78 0.19 55);
+    --primary-foreground: oklch(0.18 0.03 55);
+
+    --secondary: color-mix(in oklch, var(--foreground) 16%, var(--background));
+    --secondary-foreground: var(--foreground);
+
+    --muted: color-mix(in oklch, var(--foreground) 13%, var(--background));
+    --muted-foreground: color-mix(in oklch, var(--foreground) 70%, var(--background));
+
+    --accent: oklch(0.66 0.2 300);
+    --accent-foreground: oklch(0.97 0.02 300);
+
+    --destructive: oklch(0.62 0.22 22);
+    --destructive-foreground: oklch(0.97 0.01 80);
+    --success: oklch(0.72 0.17 155);
+    --success-foreground: oklch(0.16 0.03 155);
+    --warning: oklch(0.82 0.16 82);
+    --warning-foreground: oklch(0.2 0.03 82);
+
+    --border: oklch(0.33 0.02 264);
+    --input: var(--border);
+    --ring: oklch(0.78 0.19 55);
+
+    --brand-violet: oklch(0.66 0.2 300);
+    --brand-sky: oklch(0.72 0.14 235);
+    --brand-rose: oklch(0.68 0.2 15);
+
+    /* Main-menu icon accents — fixed pre-JS fallback values from the source
+       app's default dark theme (its JS-driven hue-rotation-per-theme isn't
+       ported here yet; this app doesn't have a theme picker in Phase 0). */
+    --icon-sky: light-dark(#0284c7, #38bdf8);
+    --icon-cyan: light-dark(#0891b2, #22d3ee);
+    --icon-teal: light-dark(#0d9488, #2dd4bf);
+    --icon-emerald: light-dark(#059669, #34d399);
+    --icon-lime: light-dark(#65a30d, #a3e635);
+    --icon-amber: light-dark(#d97706, #fbbf24);
+    --icon-orange: light-dark(#ea580c, #fb923c);
+    --icon-rose: light-dark(#e11d48, #fb7185);
+    --icon-rose-soft: light-dark(#f43f5e, #fda4af);
+    --icon-pink: light-dark(#db2777, #f472b6);
+    --icon-fuchsia: light-dark(#c026d3, #e879f9);
+    --icon-violet: light-dark(#7c3aed, #a78bfa);
+    --icon-indigo: light-dark(#4f46e5, #818cf8);
+    --icon-slate: var(--color-muted-foreground);
+
+    --chart-1: oklch(0.78 0.19 55);
+    --chart-2: oklch(0.66 0.2 300);
+    --chart-3: oklch(0.72 0.17 155);
+    --chart-4: oklch(0.68 0.2 15);
+    --chart-5: oklch(0.72 0.14 235);
+
+    --sidebar: oklch(0.14 0.016 264);
+    --sidebar-foreground: oklch(0.9 0.008 80);
+    --sidebar-primary: oklch(0.78 0.19 55);
+    --sidebar-primary-foreground: oklch(0.18 0.03 55);
+    --sidebar-accent: oklch(0.25 0.02 264);
+    --sidebar-accent-foreground: oklch(0.96 0.008 80);
+    --sidebar-border: oklch(0.26 0.018 264);
+    --sidebar-ring: oklch(0.78 0.19 55);
+}
+
+.dark {
+    color-scheme: dark;
+}
+
+@layer base {
+    * {
+        border-color: var(--color-border);
+    }
+
+    html {
+        color-scheme: dark;
+    }
+
+    body {
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-display);
+        letter-spacing: -0.02em;
+    }
+
+    /* Native interactive elements don't all default to a pointer cursor
+       (button's UA default varies by browser/OS) — force it everywhere so
+       every clickable control reads as clickable. */
+    button:not(:disabled),
+    [role='button'],
+    summary,
+    select,
+    input[type='checkbox'],
+    input[type='radio'] {
+        cursor: pointer;
+    }
+}
+
+@utility num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+@utility panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.2);
+}
+
+@utility brand-gradient {
+    background-image: linear-gradient(135deg, var(--color-primary), var(--color-brand-rose) 55%, var(--color-brand-violet));
+}
+
+@utility brand-gradient-text {
+    background-image: linear-gradient(135deg, var(--color-primary), var(--color-brand-rose) 55%, var(--color-brand-violet));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+@utility stat-glow {
+    box-shadow: 0 0 0 1px var(--color-border);
+    transition:
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+    }
+}

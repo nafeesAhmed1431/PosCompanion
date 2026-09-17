@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- connect-src port 34115 must match LOCAL_API_PORT in src/shared/index.js —
+         a static CSP meta tag can't read that JS constant, so keep them in sync
+         by hand if the port ever changes. ws:// is reserved for the KDS live-
+         update socket (later phase). -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.bunny.net; font-src 'self' https://fonts.bunny.net; connect-src 'self' http://127.0.0.1:34115 ws://127.0.0.1:34115;"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=dm-sans:400,500,600,700|space-grotesk:500,600,700|jetbrains-mono:400,500"
+      rel="stylesheet"
+    />
+    <title>POS Companion</title>
+  </head>
+  <body class="font-sans antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
